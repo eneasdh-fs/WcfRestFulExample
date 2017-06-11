@@ -1,0 +1,198 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="genres">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="name" Type="nvarchar" MaxLength="255" Nullable="false" />
+  </EntityType>
+  <EntityType Name="headquarters">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="name" Type="nvarchar" MaxLength="255" Nullable="false" />
+  </EntityType>
+  <EntityType Name="migrations">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="migration" Type="nvarchar" MaxLength="255" Nullable="false" />
+    <Property Name="batch" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="movies">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="name" Type="nvarchar" MaxLength="255" Nullable="false" />
+    <Property Name="genre_id" Type="int" Nullable="false" />
+    <Property Name="description" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="price" Type="decimal" Precision="8" Scale="3" Nullable="false" />
+    <Property Name="url" Type="nvarchar" MaxLength="255" Nullable="false" />
+  </EntityType>
+  <EntityType Name="payments">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="programming_id" Type="int" Nullable="false" />
+    <Property Name="creator_by" Type="int" Nullable="false" />
+    <Property Name="headquarter_id" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="programming">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="movie_id" Type="int" Nullable="false" />
+    <Property Name="headquarter_id" Type="int" Nullable="false" />
+    <Property Name="room" Type="nvarchar" MaxLength="255" Nullable="false" />
+    <Property Name="limit" Type="smallint" Nullable="false" />
+    <Property Name="release_at" Type="datetime" Nullable="false" />
+  </EntityType>
+  <EntityType Name="sysdiagrams">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="principal_id" Type="int" Nullable="false" />
+    <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="version" Type="int" />
+    <Property Name="definition" Type="varbinary(max)" />
+  </EntityType>
+  <EntityType Name="users">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="name" Type="nvarchar" MaxLength="255" Nullable="false" />
+    <Property Name="username" Type="nvarchar" MaxLength="255" Nullable="false" />
+    <Property Name="password" Type="nvarchar" MaxLength="255" Nullable="false" />
+    <Property Name="headquarter_id" Type="int" Nullable="false" />
+  </EntityType>
+  <Association Name="movies_genre_id_foreign">
+    <End Role="genres" Type="Self.genres" Multiplicity="1" />
+    <End Role="movies" Type="Self.movies" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="genres">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="movies">
+        <PropertyRef Name="genre_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="payments_creator_by_foreign">
+    <End Role="users" Type="Self.users" Multiplicity="1" />
+    <End Role="payments" Type="Self.payments" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="users">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="payments">
+        <PropertyRef Name="creator_by" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="payments_headquarter_id_foreign">
+    <End Role="headquarters" Type="Self.headquarters" Multiplicity="1" />
+    <End Role="payments" Type="Self.payments" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="headquarters">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="payments">
+        <PropertyRef Name="headquarter_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="payments_programming_id_foreign">
+    <End Role="programming" Type="Self.programming" Multiplicity="1" />
+    <End Role="payments" Type="Self.payments" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="programming">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="payments">
+        <PropertyRef Name="programming_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="programming_headquarter_id_foreign">
+    <End Role="headquarters" Type="Self.headquarters" Multiplicity="1" />
+    <End Role="programming" Type="Self.programming" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="headquarters">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="programming">
+        <PropertyRef Name="headquarter_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="programming_movie_id_foreign">
+    <End Role="movies" Type="Self.movies" Multiplicity="1" />
+    <End Role="programming" Type="Self.programming" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="movies">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="programming">
+        <PropertyRef Name="movie_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="users_headquarter_id_foreign">
+    <End Role="headquarters" Type="Self.headquarters" Multiplicity="1" />
+    <End Role="users" Type="Self.users" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="headquarters">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="users">
+        <PropertyRef Name="headquarter_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="ModelStoreContainer">
+    <EntitySet Name="genres" EntityType="Self.genres" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="headquarters" EntityType="Self.headquarters" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="migrations" EntityType="Self.migrations" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="movies" EntityType="Self.movies" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="payments" EntityType="Self.payments" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="programming" EntityType="Self.programming" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="users" EntityType="Self.users" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="movies_genre_id_foreign" Association="Self.movies_genre_id_foreign">
+      <End Role="genres" EntitySet="genres" />
+      <End Role="movies" EntitySet="movies" />
+    </AssociationSet>
+    <AssociationSet Name="payments_creator_by_foreign" Association="Self.payments_creator_by_foreign">
+      <End Role="users" EntitySet="users" />
+      <End Role="payments" EntitySet="payments" />
+    </AssociationSet>
+    <AssociationSet Name="payments_headquarter_id_foreign" Association="Self.payments_headquarter_id_foreign">
+      <End Role="headquarters" EntitySet="headquarters" />
+      <End Role="payments" EntitySet="payments" />
+    </AssociationSet>
+    <AssociationSet Name="payments_programming_id_foreign" Association="Self.payments_programming_id_foreign">
+      <End Role="programming" EntitySet="programming" />
+      <End Role="payments" EntitySet="payments" />
+    </AssociationSet>
+    <AssociationSet Name="programming_headquarter_id_foreign" Association="Self.programming_headquarter_id_foreign">
+      <End Role="headquarters" EntitySet="headquarters" />
+      <End Role="programming" EntitySet="programming" />
+    </AssociationSet>
+    <AssociationSet Name="programming_movie_id_foreign" Association="Self.programming_movie_id_foreign">
+      <End Role="movies" EntitySet="movies" />
+      <End Role="programming" EntitySet="programming" />
+    </AssociationSet>
+    <AssociationSet Name="users_headquarter_id_foreign" Association="Self.users_headquarter_id_foreign">
+      <End Role="headquarters" EntitySet="headquarters" />
+      <End Role="users" EntitySet="users" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

@@ -1,0 +1,1 @@
+﻿<%@ ServiceHost Language="C#" Debug="true" Service="CineMark.Programming" Factory="CineMark.WcfServiceFactory" CodeBehind="Programming.svc.cs" %>
