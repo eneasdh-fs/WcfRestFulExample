@@ -35,7 +35,22 @@ namespace CineMark.Movie
 
             return Mapper.Map<List<genres>, List<model.Genre>>(genres);
         }
-        
+
+        public model.Genre filter(string id)
+        {
+            int identity = int.Parse(id);
+            genres genre = this.Context.genres.Include("movies").Where(x => x.id == identity).FirstOrDefault();
+
+
+            if (genre == null)
+            {
+                throw new NotFoundModelException();
+            }
+
+
+            return Mapper.Map<genres, model.Genre>(genre);
+        }
+
 
         public List<model.Movie> all()
         {
@@ -43,9 +58,7 @@ namespace CineMark.Movie
 
             return Mapper.Map<List<movies>, List<model.Movie>>(movies);
         }
-
-
-
+        
         public model.Movie findOrFail(String name)
         {
 
@@ -59,15 +72,6 @@ namespace CineMark.Movie
         }
 
 
-        public String test(string id)
-        {
-            return id;
-        }
 
-
-        public List<model.Movie> filter(string genre)
-        {
-            throw new NotImplementedException();
-        }
     }
 }

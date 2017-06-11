@@ -1,1 +1,1 @@
-﻿<%@ ServiceHost Language="C#" Debug="true" Service="CineMark.Movie.Repository" CodeBehind="Repository.svc.cs" %>
+﻿<%@ ServiceHost Language="C#" Debug="true" Service="CineMark.Movie.Repository"  Factory="CineMark.WcfServiceFactory"  CodeBehind="Repository.svc.cs" %>

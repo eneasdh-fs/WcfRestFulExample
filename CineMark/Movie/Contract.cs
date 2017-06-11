@@ -19,13 +19,15 @@ namespace CineMark.Movie
         List<model.Genre> genres();
 
         [OperationContract]
+        [WebGet(UriTemplate = "/genres/{id}/movies", ResponseFormat = WebMessageFormat.Json, RequestFormat = WebMessageFormat.Json, BodyStyle = WebMessageBodyStyle.Wrapped)]
+        model.Genre filter(String id);
+
+
+        [OperationContract]
         [WebGet(UriTemplate = "/{name}/", ResponseFormat = WebMessageFormat.Json, RequestFormat = WebMessageFormat.Json, BodyStyle = WebMessageBodyStyle.Wrapped)]
         model.Movie findOrFail(String name);
         
-        [OperationContract]
-        [WebGet(UriTemplate = "/test/{genre}/", ResponseFormat = WebMessageFormat.Json, RequestFormat = WebMessageFormat.Json, BodyStyle = WebMessageBodyStyle.Wrapped)]
-        List<model.Movie> filter(String genre);
-
+ 
         [OperationContract]
         [WebGet(UriTemplate = "/", ResponseFormat = WebMessageFormat.Json, BodyStyle = WebMessageBodyStyle.Wrapped)]
         List<model.Movie> all();

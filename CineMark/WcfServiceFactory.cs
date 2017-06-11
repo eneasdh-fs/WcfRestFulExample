@@ -1,8 +1,8 @@
 
 using Microsoft.Practices.Unity;
 using Unity.Wcf;
-using movie = CineMark.Movie;
-
+using m = CineMark.Movie;
+using p = CineMark.Programming;
 namespace CineMark
 {
 	public class WcfServiceFactory : UnityServiceHostFactory
@@ -15,7 +15,8 @@ namespace CineMark
             //    .RegisterType<DataContext>(new HierarchicalLifetimeManager());
 
             container.RegisterType<Entities, Entities>()
-                .RegisterType<movie.Contract, movie.Repository>();
+                .RegisterType<m.Contract, m.Repository>()
+                .RegisterType<p.Contract, p.Repository>();
         }
     }    
 }

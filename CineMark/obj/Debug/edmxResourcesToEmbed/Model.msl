@@ -51,6 +51,7 @@
     <EntitySetMapping Name="programming">
       <EntityTypeMapping TypeName="Model.programming">
         <MappingFragment StoreEntitySet="programming">
+          <ScalarProperty Name="occupied" ColumnName="occupied" />
           <ScalarProperty Name="id" ColumnName="id" />
           <ScalarProperty Name="movie_id" ColumnName="movie_id" />
           <ScalarProperty Name="headquarter_id" ColumnName="headquarter_id" />

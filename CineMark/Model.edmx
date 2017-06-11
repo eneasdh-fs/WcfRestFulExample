@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="genres">
           <Key>
             <PropertyRef Name="id" />
@@ -57,6 +57,7 @@
           <Property Name="room" Type="nvarchar" MaxLength="255" Nullable="false" />
           <Property Name="limit" Type="smallint" Nullable="false" />
           <Property Name="release_at" Type="datetime" Nullable="false" />
+          <Property Name="occupied" Type="smallint" Nullable="false" />
         </EntityType>
         <EntityType Name="sysdiagrams">
           <Key>
@@ -200,8 +201,7 @@
             <End Role="users" EntitySet="users" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -269,6 +269,7 @@
           <NavigationProperty Name="headquarters" Relationship="Self.programming_headquarter_id_foreign" FromRole="programming" ToRole="headquarters" />
           <NavigationProperty Name="movies" Relationship="Self.programming_movie_id_foreign" FromRole="programming" ToRole="movies" />
           <NavigationProperty Name="payments" Relationship="Self.payments_programming_id_foreign" FromRole="programming" ToRole="payments" />
+          <Property Name="occupied" Type="Int16" Nullable="false" />
         </EntityType>
         <EntityType Name="sysdiagrams">
           <Key>
@@ -470,6 +471,7 @@
           <EntitySetMapping Name="programming">
             <EntityTypeMapping TypeName="Model.programming">
               <MappingFragment StoreEntitySet="programming">
+                <ScalarProperty Name="occupied" ColumnName="occupied" />
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="movie_id" ColumnName="movie_id" />
                 <ScalarProperty Name="headquarter_id" ColumnName="headquarter_id" />

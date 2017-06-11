@@ -52,6 +52,7 @@
     <Property Name="room" Type="nvarchar" MaxLength="255" Nullable="false" />
     <Property Name="limit" Type="smallint" Nullable="false" />
     <Property Name="release_at" Type="datetime" Nullable="false" />
+    <Property Name="occupied" Type="smallint" Nullable="false" />
   </EntityType>
   <EntityType Name="sysdiagrams">
     <Key>

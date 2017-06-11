@@ -25,11 +25,16 @@ namespace CineMark.models
         public short limit { get; set; }
 
         [DataMember]
-        public System.DateTime release_at { get; set; }
+        public String release_at { get; set; }
 
-        public virtual headquarters headquarters { get; set; }
+        //public virtual headquarters headquarters { get; set; }
+        
+        [DataMember]
+        public short occupied { get; set; }
 
-        public virtual movies movies { get; set; }
-        public virtual ICollection<payments> payments { get; set; }
+        [DataMember]
+        public virtual Movie movies { get; set; }
+
+        //public virtual ICollection<payments> payments { get; set; }
     }
 }

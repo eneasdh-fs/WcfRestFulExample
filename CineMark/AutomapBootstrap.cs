@@ -15,9 +15,14 @@ namespace CineMark
                 /* genres */
                 cfg.CreateMap<genres, model.Genre>().ReverseMap();
                 cfg.CreateMap<model.Genre, genres>().ReverseMap();
-                cfg.CreateMap<genres, model.MovieGenre>().PreserveReferences();
+                cfg.CreateMap<genres, model.MovieGenre>().ReverseMap();
 
-                cfg.CreateMap<movies, model.Movie>().PreserveReferences();
+                /* movies */
+                cfg.CreateMap<movies, model.Movie>().ReverseMap();
+                cfg.CreateMap<movies, model.GenreMovies>().ReverseMap();
+
+                /* programming */
+                cfg.CreateMap<programming, model.Programming>().ReverseMap().ForMember(x => x.release_at, x => x.ToString());
             
             });
             

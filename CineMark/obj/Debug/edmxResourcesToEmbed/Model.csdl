@@ -64,6 +64,7 @@
     <NavigationProperty Name="headquarters" Relationship="Self.programming_headquarter_id_foreign" FromRole="programming" ToRole="headquarters" />
     <NavigationProperty Name="movies" Relationship="Self.programming_movie_id_foreign" FromRole="programming" ToRole="movies" />
     <NavigationProperty Name="payments" Relationship="Self.payments_programming_id_foreign" FromRole="programming" ToRole="payments" />
+    <Property Name="occupied" Type="Int16" Nullable="false" />
   </EntityType>
   <EntityType Name="sysdiagrams">
     <Key>

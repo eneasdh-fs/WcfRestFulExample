@@ -25,6 +25,7 @@ namespace CineMark
         public string room { get; set; }
         public short limit { get; set; }
         public System.DateTime release_at { get; set; }
+        public short occupied { get; set; }
     
         public virtual headquarters headquarters { get; set; }
         public virtual movies movies { get; set; }
