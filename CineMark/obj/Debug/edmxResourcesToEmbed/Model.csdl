@@ -50,6 +50,9 @@
     <NavigationProperty Name="headquarters" Relationship="Self.payments_headquarter_id_foreign" FromRole="payments" ToRole="headquarters" />
     <NavigationProperty Name="users" Relationship="Self.payments_creator_by_foreign" FromRole="payments" ToRole="users" />
     <NavigationProperty Name="programming" Relationship="Self.payments_programming_id_foreign" FromRole="payments" ToRole="programming" />
+    <Property Name="client" Type="String" Nullable="false" MaxLength="60" FixedLength="false" Unicode="false" />
+    <Property Name="quantity" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="payment_detail" Relationship="Model.FK__payment_d__payme__71D1E811" FromRole="payments" ToRole="payment_detail" />
   </EntityType>
   <EntityType Name="programming">
     <Key>
@@ -209,5 +212,62 @@
       <End Role="programming" EntitySet="programming" />
       <End Role="payments" EntitySet="payments" />
     </AssociationSet>
+    <EntitySet Name="products" EntityType="Model.products" />
+    <EntitySet Name="payment_detail" EntityType="Model.payment_detail" />
+    <AssociationSet Name="FK__payment_d__payme__71D1E811" Association="Model.FK__payment_d__payme__71D1E811">
+      <End Role="payments" EntitySet="payments" />
+      <End Role="payment_detail" EntitySet="payment_detail" />
+    </AssociationSet>
+    <AssociationSet Name="FK__payment_d__produ__70DDC3D8" Association="Model.FK__payment_d__produ__70DDC3D8">
+      <End Role="products" EntitySet="products" />
+      <End Role="payment_detail" EntitySet="payment_detail" />
+    </AssociationSet>
   </EntityContainer>
+  <EntityType Name="products">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="price" Type="Decimal" Nullable="false" Precision="10" Scale="3" />
+    <NavigationProperty Name="payment_detail" Relationship="Model.FK__payment_d__produ__70DDC3D8" FromRole="products" ToRole="payment_detail" />
+  </EntityType>
+  <EntityType Name="payment_detail">
+    <Key>
+      <PropertyRef Name="product_id" />
+      <PropertyRef Name="payment_id" />
+      <PropertyRef Name="quantity" />
+      <PropertyRef Name="price" />
+    </Key>
+    <Property Name="product_id" Type="Int32" Nullable="false" />
+    <Property Name="payment_id" Type="Int32" Nullable="false" />
+    <Property Name="quantity" Type="Int32" Nullable="false" />
+    <Property Name="price" Type="Decimal" Nullable="false" Precision="10" Scale="3" />
+    <NavigationProperty Name="payments" Relationship="Model.FK__payment_d__payme__71D1E811" FromRole="payment_detail" ToRole="payments" />
+    <NavigationProperty Name="products" Relationship="Model.FK__payment_d__produ__70DDC3D8" FromRole="payment_detail" ToRole="products" />
+  </EntityType>
+  <Association Name="FK__payment_d__payme__71D1E811">
+    <End Type="Model.payments" Role="payments" Multiplicity="1" />
+    <End Type="Model.payment_detail" Role="payment_detail" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="payments">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="payment_detail">
+        <PropertyRef Name="payment_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__payment_d__produ__70DDC3D8">
+    <End Type="Model.products" Role="products" Multiplicity="1" />
+    <End Type="Model.payment_detail" Role="payment_detail" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="products">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="payment_detail">
+        <PropertyRef Name="product_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
 </Schema>

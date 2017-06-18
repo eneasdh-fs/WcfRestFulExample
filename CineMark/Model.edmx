@@ -38,6 +38,20 @@
           <Property Name="price" Type="decimal" Precision="8" Scale="3" Nullable="false" />
           <Property Name="url" Type="nvarchar" MaxLength="255" Nullable="false" />
         </EntityType>
+        <!--Errores durante la generación:
+advertencia 6002: La tabla o vista 'cinemark.dbo.payment_detail' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
+        <EntityType Name="payment_detail">
+          <Key>
+            <PropertyRef Name="product_id" />
+            <PropertyRef Name="payment_id" />
+            <PropertyRef Name="quantity" />
+            <PropertyRef Name="price" />
+          </Key>
+          <Property Name="product_id" Type="int" Nullable="false" />
+          <Property Name="payment_id" Type="int" Nullable="false" />
+          <Property Name="quantity" Type="int" Nullable="false" />
+          <Property Name="price" Type="decimal" Precision="10" Scale="3" Nullable="false" />
+        </EntityType>
         <EntityType Name="payments">
           <Key>
             <PropertyRef Name="id" />
@@ -46,6 +60,16 @@
           <Property Name="programming_id" Type="int" Nullable="false" />
           <Property Name="creator_by" Type="int" Nullable="false" />
           <Property Name="headquarter_id" Type="int" Nullable="false" />
+          <Property Name="client" Type="varchar" MaxLength="60" Nullable="false" />
+          <Property Name="quantity" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="products">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="price" Type="decimal" Precision="10" Scale="3" Nullable="false" />
         </EntityType>
         <EntityType Name="programming">
           <Key>
@@ -79,6 +103,30 @@
           <Property Name="password" Type="nvarchar" MaxLength="255" Nullable="false" />
           <Property Name="headquarter_id" Type="int" Nullable="false" />
         </EntityType>
+        <Association Name="FK__payment_d__payme__71D1E811">
+          <End Role="payments" Type="Self.payments" Multiplicity="1" />
+          <End Role="payment_detail" Type="Self.payment_detail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="payments">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="payment_detail">
+              <PropertyRef Name="payment_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__payment_d__produ__70DDC3D8">
+          <End Role="products" Type="Self.products" Multiplicity="1" />
+          <End Role="payment_detail" Type="Self.payment_detail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="products">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="payment_detail">
+              <PropertyRef Name="product_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="movies_genre_id_foreign">
           <End Role="genres" Type="Self.genres" Multiplicity="1" />
           <End Role="movies" Type="Self.movies" Multiplicity="*" />
@@ -169,9 +217,26 @@
           <EntitySet Name="migrations" EntityType="Self.migrations" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="movies" EntityType="Self.movies" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="payments" EntityType="Self.payments" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="products" EntityType="Self.products" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="programming" EntityType="Self.programming" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="users" EntityType="Self.users" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="payment_detail" EntityType="Self.payment_detail" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [payment_detail].[product_id] AS [product_id], 
+    [payment_detail].[payment_id] AS [payment_id], 
+    [payment_detail].[quantity] AS [quantity], 
+    [payment_detail].[price] AS [price]
+    FROM [dbo].[payment_detail] AS [payment_detail]</DefiningQuery>
+          </EntitySet>
+          <AssociationSet Name="FK__payment_d__payme__71D1E811" Association="Self.FK__payment_d__payme__71D1E811">
+            <End Role="payments" EntitySet="payments" />
+            <End Role="payment_detail" EntitySet="payment_detail" />
+          </AssociationSet>
+          <AssociationSet Name="FK__payment_d__produ__70DDC3D8" Association="Self.FK__payment_d__produ__70DDC3D8">
+            <End Role="products" EntitySet="products" />
+            <End Role="payment_detail" EntitySet="payment_detail" />
+          </AssociationSet>
           <AssociationSet Name="movies_genre_id_foreign" Association="Self.movies_genre_id_foreign">
             <End Role="genres" EntitySet="genres" />
             <End Role="movies" EntitySet="movies" />
@@ -255,6 +320,9 @@
           <NavigationProperty Name="headquarters" Relationship="Self.payments_headquarter_id_foreign" FromRole="payments" ToRole="headquarters" />
           <NavigationProperty Name="users" Relationship="Self.payments_creator_by_foreign" FromRole="payments" ToRole="users" />
           <NavigationProperty Name="programming" Relationship="Self.payments_programming_id_foreign" FromRole="payments" ToRole="programming" />
+          <Property Name="client" Type="String" Nullable="false" MaxLength="60" FixedLength="false" Unicode="false" />
+          <Property Name="quantity" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="payment_detail" Relationship="Model.FK__payment_d__payme__71D1E811" FromRole="payments" ToRole="payment_detail" />
         </EntityType>
         <EntityType Name="programming">
           <Key>
@@ -414,7 +482,64 @@
             <End Role="programming" EntitySet="programming" />
             <End Role="payments" EntitySet="payments" />
           </AssociationSet>
+          <EntitySet Name="products" EntityType="Model.products" />
+          <EntitySet Name="payment_detail" EntityType="Model.payment_detail" />
+          <AssociationSet Name="FK__payment_d__payme__71D1E811" Association="Model.FK__payment_d__payme__71D1E811">
+            <End Role="payments" EntitySet="payments" />
+            <End Role="payment_detail" EntitySet="payment_detail" />
+          </AssociationSet>
+          <AssociationSet Name="FK__payment_d__produ__70DDC3D8" Association="Model.FK__payment_d__produ__70DDC3D8">
+            <End Role="products" EntitySet="products" />
+            <End Role="payment_detail" EntitySet="payment_detail" />
+          </AssociationSet>
         </EntityContainer>
+        <EntityType Name="products">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="price" Type="Decimal" Nullable="false" Precision="10" Scale="3" />
+          <NavigationProperty Name="payment_detail" Relationship="Model.FK__payment_d__produ__70DDC3D8" FromRole="products" ToRole="payment_detail" />
+        </EntityType>
+        <EntityType Name="payment_detail">
+          <Key>
+            <PropertyRef Name="product_id" />
+            <PropertyRef Name="payment_id" />
+            <PropertyRef Name="quantity" />
+            <PropertyRef Name="price" />
+          </Key>
+          <Property Name="product_id" Type="Int32" Nullable="false" />
+          <Property Name="payment_id" Type="Int32" Nullable="false" />
+          <Property Name="quantity" Type="Int32" Nullable="false" />
+          <Property Name="price" Type="Decimal" Nullable="false" Precision="10" Scale="3" />
+          <NavigationProperty Name="payments" Relationship="Model.FK__payment_d__payme__71D1E811" FromRole="payment_detail" ToRole="payments" />
+          <NavigationProperty Name="products" Relationship="Model.FK__payment_d__produ__70DDC3D8" FromRole="payment_detail" ToRole="products" />
+        </EntityType>
+        <Association Name="FK__payment_d__payme__71D1E811">
+          <End Type="Model.payments" Role="payments" Multiplicity="1" />
+          <End Type="Model.payment_detail" Role="payment_detail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="payments">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="payment_detail">
+              <PropertyRef Name="payment_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__payment_d__produ__70DDC3D8">
+          <End Type="Model.products" Role="products" Multiplicity="1" />
+          <End Type="Model.payment_detail" Role="payment_detail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="products">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="payment_detail">
+              <PropertyRef Name="product_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -461,6 +586,8 @@
           <EntitySetMapping Name="payments">
             <EntityTypeMapping TypeName="Model.payments">
               <MappingFragment StoreEntitySet="payments">
+                <ScalarProperty Name="quantity" ColumnName="quantity" />
+                <ScalarProperty Name="client" ColumnName="client" />
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="programming_id" ColumnName="programming_id" />
                 <ScalarProperty Name="creator_by" ColumnName="creator_by" />
@@ -500,6 +627,25 @@
                 <ScalarProperty Name="username" ColumnName="username" />
                 <ScalarProperty Name="password" ColumnName="password" />
                 <ScalarProperty Name="headquarter_id" ColumnName="headquarter_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="products">
+            <EntityTypeMapping TypeName="Model.products">
+              <MappingFragment StoreEntitySet="products">
+                <ScalarProperty Name="price" ColumnName="price" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="payment_detail">
+            <EntityTypeMapping TypeName="Model.payment_detail">
+              <MappingFragment StoreEntitySet="payment_detail">
+                <ScalarProperty Name="price" ColumnName="price" />
+                <ScalarProperty Name="quantity" ColumnName="quantity" />
+                <ScalarProperty Name="payment_id" ColumnName="payment_id" />
+                <ScalarProperty Name="product_id" ColumnName="product_id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

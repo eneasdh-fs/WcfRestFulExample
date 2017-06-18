@@ -74,4 +74,3 @@ F:\Web\NET\C#\CineMark\CineMark\bin\zh-Hans\System.Spatial.resources.dll
 F:\Web\NET\C#\CineMark\CineMark\bin\zh-Hant\System.Spatial.resources.dll
 F:\Web\NET\C#\CineMark\CineMark\obj\Debug\CineMark.dll
 F:\Web\NET\C#\CineMark\CineMark\obj\Debug\CineMark.pdb
-F:\Web\NET\C#\CineMark\CineMark\obj\Debug\CineMark.csprojResolveAssemblyReference.cache

@@ -33,6 +33,20 @@
     <Property Name="price" Type="decimal" Precision="8" Scale="3" Nullable="false" />
     <Property Name="url" Type="nvarchar" MaxLength="255" Nullable="false" />
   </EntityType>
+  <!--Errores durante la generación:
+advertencia 6002: La tabla o vista 'cinemark.dbo.payment_detail' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
+  <EntityType Name="payment_detail">
+    <Key>
+      <PropertyRef Name="product_id" />
+      <PropertyRef Name="payment_id" />
+      <PropertyRef Name="quantity" />
+      <PropertyRef Name="price" />
+    </Key>
+    <Property Name="product_id" Type="int" Nullable="false" />
+    <Property Name="payment_id" Type="int" Nullable="false" />
+    <Property Name="quantity" Type="int" Nullable="false" />
+    <Property Name="price" Type="decimal" Precision="10" Scale="3" Nullable="false" />
+  </EntityType>
   <EntityType Name="payments">
     <Key>
       <PropertyRef Name="id" />
@@ -41,6 +55,16 @@
     <Property Name="programming_id" Type="int" Nullable="false" />
     <Property Name="creator_by" Type="int" Nullable="false" />
     <Property Name="headquarter_id" Type="int" Nullable="false" />
+    <Property Name="client" Type="varchar" MaxLength="60" Nullable="false" />
+    <Property Name="quantity" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="products">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="name" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="price" Type="decimal" Precision="10" Scale="3" Nullable="false" />
   </EntityType>
   <EntityType Name="programming">
     <Key>
@@ -74,6 +98,30 @@
     <Property Name="password" Type="nvarchar" MaxLength="255" Nullable="false" />
     <Property Name="headquarter_id" Type="int" Nullable="false" />
   </EntityType>
+  <Association Name="FK__payment_d__payme__71D1E811">
+    <End Role="payments" Type="Self.payments" Multiplicity="1" />
+    <End Role="payment_detail" Type="Self.payment_detail" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="payments">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="payment_detail">
+        <PropertyRef Name="payment_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__payment_d__produ__70DDC3D8">
+    <End Role="products" Type="Self.products" Multiplicity="1" />
+    <End Role="payment_detail" Type="Self.payment_detail" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="products">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="payment_detail">
+        <PropertyRef Name="product_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="movies_genre_id_foreign">
     <End Role="genres" Type="Self.genres" Multiplicity="1" />
     <End Role="movies" Type="Self.movies" Multiplicity="*" />
@@ -164,9 +212,26 @@
     <EntitySet Name="migrations" EntityType="Self.migrations" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="movies" EntityType="Self.movies" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="payments" EntityType="Self.payments" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="products" EntityType="Self.products" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="programming" EntityType="Self.programming" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="users" EntityType="Self.users" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="payment_detail" EntityType="Self.payment_detail" store:Type="Tables" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [payment_detail].[product_id] AS [product_id], 
+    [payment_detail].[payment_id] AS [payment_id], 
+    [payment_detail].[quantity] AS [quantity], 
+    [payment_detail].[price] AS [price]
+    FROM [dbo].[payment_detail] AS [payment_detail]</DefiningQuery>
+    </EntitySet>
+    <AssociationSet Name="FK__payment_d__payme__71D1E811" Association="Self.FK__payment_d__payme__71D1E811">
+      <End Role="payments" EntitySet="payments" />
+      <End Role="payment_detail" EntitySet="payment_detail" />
+    </AssociationSet>
+    <AssociationSet Name="FK__payment_d__produ__70DDC3D8" Association="Self.FK__payment_d__produ__70DDC3D8">
+      <End Role="products" EntitySet="products" />
+      <End Role="payment_detail" EntitySet="payment_detail" />
+    </AssociationSet>
     <AssociationSet Name="movies_genre_id_foreign" Association="Self.movies_genre_id_foreign">
       <End Role="genres" EntitySet="genres" />
       <End Role="movies" EntitySet="movies" />

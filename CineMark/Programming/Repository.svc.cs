@@ -32,9 +32,11 @@ namespace CineMark.Programming
             return Mapper.Map<List<programming>, List<model.Programming>>(programming);
         }
 
-        public models.Programming findOrFail()
+        public models.Programming findOrFail(String id)
         {
-            throw new NotImplementedException();
+            int programming_id = int.Parse(id);
+            programming programming = Context.programming.Include("movies").First(x => x.id == programming_id);
+            return Mapper.Map<programming, model.Programming>(programming);
         }
     }
 }

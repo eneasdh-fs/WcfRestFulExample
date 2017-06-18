@@ -12,23 +12,17 @@ namespace CineMark
     using System;
     using System.Collections.Generic;
     
-    public partial class payments
+    public partial class products
     {
-        public payments()
+        public products()
         {
             this.payment_detail = new HashSet<payment_detail>();
         }
     
         public int id { get; set; }
-        public int programming_id { get; set; }
-        public int creator_by { get; set; }
-        public int headquarter_id { get; set; }
-        public string client { get; set; }
-        public int quantity { get; set; }
+        public string name { get; set; }
+        public decimal price { get; set; }
     
-        public virtual headquarters headquarters { get; set; }
-        public virtual users users { get; set; }
-        public virtual programming programming { get; set; }
         public virtual ICollection<payment_detail> payment_detail { get; set; }
     }
 }

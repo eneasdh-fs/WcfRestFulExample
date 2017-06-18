@@ -18,7 +18,6 @@ namespace CineMark
         public Entities()
             : base("name=Entities")
         {
-            this.Configuration.LazyLoadingEnabled = false;
         }
     
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
@@ -34,5 +33,7 @@ namespace CineMark
         public virtual DbSet<programming> programming { get; set; }
         public virtual DbSet<sysdiagrams> sysdiagrams { get; set; }
         public virtual DbSet<users> users { get; set; }
+        public virtual DbSet<products> products { get; set; }
+        public virtual DbSet<payment_detail> payment_detail { get; set; }
     }
 }

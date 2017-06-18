@@ -18,7 +18,7 @@ namespace CineMark.Programming
         List<model.Programming> all();
         
         [OperationContract]
-        [WebGet(UriTemplate = "/programmning/", RequestFormat = WebMessageFormat.Json, ResponseFormat = WebMessageFormat.Json, BodyStyle = WebMessageBodyStyle.Wrapped)]
-        model.Programming findOrFail();
+        [WebGet(UriTemplate = "/{id}/", RequestFormat = WebMessageFormat.Json, ResponseFormat = WebMessageFormat.Json, BodyStyle = WebMessageBodyStyle.Wrapped)]
+        model.Programming findOrFail(String id);
     }
 }

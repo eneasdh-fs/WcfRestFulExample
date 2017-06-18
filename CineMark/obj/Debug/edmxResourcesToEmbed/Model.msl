@@ -41,6 +41,8 @@
     <EntitySetMapping Name="payments">
       <EntityTypeMapping TypeName="Model.payments">
         <MappingFragment StoreEntitySet="payments">
+          <ScalarProperty Name="quantity" ColumnName="quantity" />
+          <ScalarProperty Name="client" ColumnName="client" />
           <ScalarProperty Name="id" ColumnName="id" />
           <ScalarProperty Name="programming_id" ColumnName="programming_id" />
           <ScalarProperty Name="creator_by" ColumnName="creator_by" />
@@ -80,6 +82,25 @@
           <ScalarProperty Name="username" ColumnName="username" />
           <ScalarProperty Name="password" ColumnName="password" />
           <ScalarProperty Name="headquarter_id" ColumnName="headquarter_id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="products">
+      <EntityTypeMapping TypeName="Model.products">
+        <MappingFragment StoreEntitySet="products">
+          <ScalarProperty Name="price" ColumnName="price" />
+          <ScalarProperty Name="name" ColumnName="name" />
+          <ScalarProperty Name="id" ColumnName="id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="payment_detail">
+      <EntityTypeMapping TypeName="Model.payment_detail">
+        <MappingFragment StoreEntitySet="payment_detail">
+          <ScalarProperty Name="price" ColumnName="price" />
+          <ScalarProperty Name="quantity" ColumnName="quantity" />
+          <ScalarProperty Name="payment_id" ColumnName="payment_id" />
+          <ScalarProperty Name="product_id" ColumnName="product_id" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
