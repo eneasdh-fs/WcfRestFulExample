@@ -1,6 +1,7 @@
 ﻿using CineMark.Response;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Runtime.Serialization;
 using System.ServiceModel;
@@ -15,7 +16,7 @@ namespace CineMark.Payment
     public interface Contract
     {
         [OperationContract]
-        [WebInvoke(Method = "GET", UriTemplate = "/payments/{programming_id}/programming/?client={client}&quantity={quantity}", ResponseFormat = WebMessageFormat.Json, RequestFormat = WebMessageFormat.Json, BodyStyle = WebMessageBodyStyle.Wrapped)]
-        Json store(String programming_id, String client, String quantity);
+        [WebInvoke(Method = "GET", UriTemplate = "/payments/{programming_id}/programming/?client={client}&quantity={quantity}&element={element}", ResponseFormat = WebMessageFormat.Json, RequestFormat = WebMessageFormat.Json, BodyStyle = WebMessageBodyStyle.Wrapped)]
+        Json store(String programming_id, String client, String quantity, String element);
     }
 }

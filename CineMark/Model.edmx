@@ -38,14 +38,10 @@
           <Property Name="price" Type="decimal" Precision="8" Scale="3" Nullable="false" />
           <Property Name="url" Type="nvarchar" MaxLength="255" Nullable="false" />
         </EntityType>
-        <!--Errores durante la generación:
-advertencia 6002: La tabla o vista 'cinemark.dbo.payment_detail' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
         <EntityType Name="payment_detail">
           <Key>
             <PropertyRef Name="product_id" />
             <PropertyRef Name="payment_id" />
-            <PropertyRef Name="quantity" />
-            <PropertyRef Name="price" />
           </Key>
           <Property Name="product_id" Type="int" Nullable="false" />
           <Property Name="payment_id" Type="int" Nullable="false" />
@@ -216,19 +212,12 @@ advertencia 6002: La tabla o vista 'cinemark.dbo.payment_detail' no tiene defini
           <EntitySet Name="headquarters" EntityType="Self.headquarters" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="migrations" EntityType="Self.migrations" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="movies" EntityType="Self.movies" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="payment_detail" EntityType="Self.payment_detail" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="payments" EntityType="Self.payments" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="products" EntityType="Self.products" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="programming" EntityType="Self.programming" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="users" EntityType="Self.users" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="payment_detail" EntityType="Self.payment_detail" store:Type="Tables" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-    [payment_detail].[product_id] AS [product_id], 
-    [payment_detail].[payment_id] AS [payment_id], 
-    [payment_detail].[quantity] AS [quantity], 
-    [payment_detail].[price] AS [price]
-    FROM [dbo].[payment_detail] AS [payment_detail]</DefiningQuery>
-          </EntitySet>
           <AssociationSet Name="FK__payment_d__payme__71D1E811" Association="Self.FK__payment_d__payme__71D1E811">
             <End Role="payments" EntitySet="payments" />
             <End Role="payment_detail" EntitySet="payment_detail" />
@@ -506,8 +495,6 @@ advertencia 6002: La tabla o vista 'cinemark.dbo.payment_detail' no tiene defini
           <Key>
             <PropertyRef Name="product_id" />
             <PropertyRef Name="payment_id" />
-            <PropertyRef Name="quantity" />
-            <PropertyRef Name="price" />
           </Key>
           <Property Name="product_id" Type="Int32" Nullable="false" />
           <Property Name="payment_id" Type="Int32" Nullable="false" />

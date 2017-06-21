@@ -9,6 +9,8 @@ namespace CineMark.Response
     {
         public Boolean success { get; set; }
 
+        public String[] data { get; set; }
+
         public String message{ get; set; }
     }
 }

@@ -236,8 +236,6 @@
     <Key>
       <PropertyRef Name="product_id" />
       <PropertyRef Name="payment_id" />
-      <PropertyRef Name="quantity" />
-      <PropertyRef Name="price" />
     </Key>
     <Property Name="product_id" Type="Int32" Nullable="false" />
     <Property Name="payment_id" Type="Int32" Nullable="false" />
