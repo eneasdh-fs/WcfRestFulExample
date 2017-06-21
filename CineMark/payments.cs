@@ -25,10 +25,11 @@ namespace CineMark
         public int headquarter_id { get; set; }
         public string client { get; set; }
         public int quantity { get; set; }
+        public decimal price { get; set; }
     
         public virtual headquarters headquarters { get; set; }
+        public virtual ICollection<payment_detail> payment_detail { get; set; }
         public virtual users users { get; set; }
         public virtual programming programming { get; set; }
-        public virtual ICollection<payment_detail> payment_detail { get; set; }
     }
 }

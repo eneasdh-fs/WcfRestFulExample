@@ -17,7 +17,7 @@ namespace CineMark.Payment
     {
 
         protected readonly Entities Context;
-        protected const int quantity = 0; 
+        protected const int quantity = 1; 
 
         public Repository(Entities Context)
         {
@@ -41,9 +41,10 @@ namespace CineMark.Payment
 
                 payments pay = this.Context.payments.Add(new payments() {
                     programming_id = programming.id,
+                    price = programming.movies.price,
                     client = client,
                     headquarter_id = 1,
-                    quantity = Repository.quantity,
+                    quantity = q,
                     creator_by = 1
                 });
 
@@ -57,17 +58,13 @@ namespace CineMark.Payment
                     {
                         pay.payment_detail.Add(new payment_detail()
                         {
-                           // payment_id = pay.id,
                             price = x.price,
                             product_id = x.id,
-                            quantity = q
+                            quantity = Repository.quantity
                         });
-
-                        
                     });
 
                     isSuccess = this.Context.SaveChanges() > 0;
-
                 }
                 
 
@@ -95,20 +92,6 @@ namespace CineMark.Payment
 
 
 
-        protected Boolean updateOccupiedProperty(programming programming, int quantity)
-        {
-            int occupied = int.Parse(programming.occupied.ToString());
-
-            programming.occupied = (short)(occupied + quantity);
-
-            this.Context.Entry(programming).State = EntityState.Modified;
-
-            return this.Context.SaveChanges() > 0;
-        }
-
-
-
-
         public List<model.Payment> all()
         {
             List<payments> payments = this.Context.payments.ToList();
@@ -121,5 +104,19 @@ namespace CineMark.Payment
             int key = int.Parse(id);
             return Mapper.Map<payments, model.Payment>(this.Context.payments.First(x => x.id == key));
         }
+
+
+
+        protected Boolean updateOccupiedProperty(programming programming, int quantity)
+        {
+            int occupied = int.Parse(programming.occupied.ToString());
+
+            programming.occupied = (short)(occupied + quantity);
+
+            this.Context.Entry(programming).State = EntityState.Modified;
+
+            return this.Context.SaveChanges() > 0;
+        }
+
     }
 }

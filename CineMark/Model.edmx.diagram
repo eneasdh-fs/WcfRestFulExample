@@ -5,25 +5,25 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="05e746d11f8f42b5b12c3ef95e98fa37" Name="Diagram1">
-        <EntityTypeShape EntityType="Model.genres" Width="1.5" PointX="1.5" PointY="8.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="Model.headquarters" Width="1.5" PointX="0.75" PointY="5" IsExpanded="true" />
-        <EntityTypeShape EntityType="Model.migrations" Width="1.5" PointX="2.75" PointY="1" IsExpanded="true" />
-        <EntityTypeShape EntityType="Model.movies" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="Model.payments" Width="1.5" PointX="5.25" PointY="8.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="Model.programming" Width="1.5" PointX="3" PointY="4.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="Model.sysdiagrams" Width="1.5" PointX="4.75" PointY="1" IsExpanded="true" />
-        <EntityTypeShape EntityType="Model.users" Width="1.5" PointX="3" PointY="11.5" IsExpanded="true" />
-        <AssociationConnector Association="Model.movies_genre_id_foreign" ManuallyRouted="false" />
-        <AssociationConnector Association="Model.payments_headquarter_id_foreign" ManuallyRouted="false" />
-        <AssociationConnector Association="Model.programming_headquarter_id_foreign" ManuallyRouted="false" />
-        <AssociationConnector Association="Model.users_headquarter_id_foreign" ManuallyRouted="false" />
-        <AssociationConnector Association="Model.programming_movie_id_foreign" ManuallyRouted="false" />
-        <AssociationConnector Association="Model.payments_creator_by_foreign" ManuallyRouted="false" />
-        <AssociationConnector Association="Model.payments_programming_id_foreign" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="Model.genres" Width="1.5" PointX="1.5" PointY="9.375" />
+        <EntityTypeShape EntityType="Model.headquarters" Width="1.5" PointX="0.75" PointY="5.25" />
+        <EntityTypeShape EntityType="Model.migrations" Width="1.5" PointX="2.75" PointY="0.75" />
+        <EntityTypeShape EntityType="Model.movies" Width="1.5" PointX="0.75" PointY="0.875" />
+        <EntityTypeShape EntityType="Model.payment_detail" Width="1.5" PointX="7.5" PointY="8.625" />
+        <EntityTypeShape EntityType="Model.payments" Width="1.5" PointX="5.25" PointY="8.25" />
         <EntityTypeShape EntityType="Model.products" Width="1.5" PointX="5.25" PointY="4.875" />
-        <EntityTypeShape EntityType="Model.payment_detail" Width="1.5" PointX="9" PointY="8.625" />
+        <EntityTypeShape EntityType="Model.programming" Width="1.5" PointX="3" PointY="4.75" />
+        <EntityTypeShape EntityType="Model.sysdiagrams" Width="1.5" PointX="4.75" PointY="0.75" />
+        <EntityTypeShape EntityType="Model.users" Width="1.5" PointX="3" PointY="12.375" />
+        <AssociationConnector Association="Model.FK_movies_genre_id_foreign" />
+        <AssociationConnector Association="Model.FK_payments_headquarter_id_foreign" />
+        <AssociationConnector Association="Model.FK_programming_headquarter_id_foreign" />
+        <AssociationConnector Association="Model.FK_users_headquarter_id_foreign" />
+        <AssociationConnector Association="Model.FK_programming_movie_id_foreign" />
         <AssociationConnector Association="Model.FK__payment_d__payme__71D1E811" />
         <AssociationConnector Association="Model.FK__payment_d__produ__70DDC3D8" />
+        <AssociationConnector Association="Model.FK_payments_creator_by_foreign" />
+        <AssociationConnector Association="Model.FK_payments_programming_id_foreign" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

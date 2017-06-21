@@ -29,11 +29,11 @@ namespace CineMark
         public virtual DbSet<headquarters> headquarters { get; set; }
         public virtual DbSet<migrations> migrations { get; set; }
         public virtual DbSet<movies> movies { get; set; }
+        public virtual DbSet<payment_detail> payment_detail { get; set; }
         public virtual DbSet<payments> payments { get; set; }
+        public virtual DbSet<products> products { get; set; }
         public virtual DbSet<programming> programming { get; set; }
         public virtual DbSet<sysdiagrams> sysdiagrams { get; set; }
         public virtual DbSet<users> users { get; set; }
-        public virtual DbSet<products> products { get; set; }
-        public virtual DbSet<payment_detail> payment_detail { get; set; }
     }
 }

@@ -53,6 +53,7 @@
     <Property Name="headquarter_id" Type="int" Nullable="false" />
     <Property Name="client" Type="varchar" MaxLength="60" Nullable="false" />
     <Property Name="quantity" Type="int" Nullable="false" />
+    <Property Name="price" Type="decimal" Precision="10" Scale="3" Nullable="false" />
   </EntityType>
   <EntityType Name="products">
     <Key>
@@ -118,7 +119,7 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="movies_genre_id_foreign">
+  <Association Name="FK_movies_genre_id_foreign">
     <End Role="genres" Type="Self.genres" Multiplicity="1" />
     <End Role="movies" Type="Self.movies" Multiplicity="*" />
     <ReferentialConstraint>
@@ -130,7 +131,7 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="payments_creator_by_foreign">
+  <Association Name="FK_payments_creator_by_foreign">
     <End Role="users" Type="Self.users" Multiplicity="1" />
     <End Role="payments" Type="Self.payments" Multiplicity="*" />
     <ReferentialConstraint>
@@ -142,7 +143,7 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="payments_headquarter_id_foreign">
+  <Association Name="FK_payments_headquarter_id_foreign">
     <End Role="headquarters" Type="Self.headquarters" Multiplicity="1" />
     <End Role="payments" Type="Self.payments" Multiplicity="*" />
     <ReferentialConstraint>
@@ -154,7 +155,7 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="payments_programming_id_foreign">
+  <Association Name="FK_payments_programming_id_foreign">
     <End Role="programming" Type="Self.programming" Multiplicity="1" />
     <End Role="payments" Type="Self.payments" Multiplicity="*" />
     <ReferentialConstraint>
@@ -166,7 +167,7 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="programming_headquarter_id_foreign">
+  <Association Name="FK_programming_headquarter_id_foreign">
     <End Role="headquarters" Type="Self.headquarters" Multiplicity="1" />
     <End Role="programming" Type="Self.programming" Multiplicity="*" />
     <ReferentialConstraint>
@@ -178,7 +179,7 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="programming_movie_id_foreign">
+  <Association Name="FK_programming_movie_id_foreign">
     <End Role="movies" Type="Self.movies" Multiplicity="1" />
     <End Role="programming" Type="Self.programming" Multiplicity="*" />
     <ReferentialConstraint>
@@ -190,7 +191,7 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="users_headquarter_id_foreign">
+  <Association Name="FK_users_headquarter_id_foreign">
     <End Role="headquarters" Type="Self.headquarters" Multiplicity="1" />
     <End Role="users" Type="Self.users" Multiplicity="*" />
     <ReferentialConstraint>
@@ -221,31 +222,31 @@
       <End Role="products" EntitySet="products" />
       <End Role="payment_detail" EntitySet="payment_detail" />
     </AssociationSet>
-    <AssociationSet Name="movies_genre_id_foreign" Association="Self.movies_genre_id_foreign">
+    <AssociationSet Name="FK_movies_genre_id_foreign" Association="Self.FK_movies_genre_id_foreign">
       <End Role="genres" EntitySet="genres" />
       <End Role="movies" EntitySet="movies" />
     </AssociationSet>
-    <AssociationSet Name="payments_creator_by_foreign" Association="Self.payments_creator_by_foreign">
+    <AssociationSet Name="FK_payments_creator_by_foreign" Association="Self.FK_payments_creator_by_foreign">
       <End Role="users" EntitySet="users" />
       <End Role="payments" EntitySet="payments" />
     </AssociationSet>
-    <AssociationSet Name="payments_headquarter_id_foreign" Association="Self.payments_headquarter_id_foreign">
+    <AssociationSet Name="FK_payments_headquarter_id_foreign" Association="Self.FK_payments_headquarter_id_foreign">
       <End Role="headquarters" EntitySet="headquarters" />
       <End Role="payments" EntitySet="payments" />
     </AssociationSet>
-    <AssociationSet Name="payments_programming_id_foreign" Association="Self.payments_programming_id_foreign">
+    <AssociationSet Name="FK_payments_programming_id_foreign" Association="Self.FK_payments_programming_id_foreign">
       <End Role="programming" EntitySet="programming" />
       <End Role="payments" EntitySet="payments" />
     </AssociationSet>
-    <AssociationSet Name="programming_headquarter_id_foreign" Association="Self.programming_headquarter_id_foreign">
+    <AssociationSet Name="FK_programming_headquarter_id_foreign" Association="Self.FK_programming_headquarter_id_foreign">
       <End Role="headquarters" EntitySet="headquarters" />
       <End Role="programming" EntitySet="programming" />
     </AssociationSet>
-    <AssociationSet Name="programming_movie_id_foreign" Association="Self.programming_movie_id_foreign">
+    <AssociationSet Name="FK_programming_movie_id_foreign" Association="Self.FK_programming_movie_id_foreign">
       <End Role="movies" EntitySet="movies" />
       <End Role="programming" EntitySet="programming" />
     </AssociationSet>
-    <AssociationSet Name="users_headquarter_id_foreign" Association="Self.users_headquarter_id_foreign">
+    <AssociationSet Name="FK_users_headquarter_id_foreign" Association="Self.FK_users_headquarter_id_foreign">
       <End Role="headquarters" EntitySet="headquarters" />
       <End Role="users" EntitySet="users" />
     </AssociationSet>

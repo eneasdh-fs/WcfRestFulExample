@@ -29,7 +29,7 @@ namespace CineMark.models
         public int quantity { get; set; }
 
         [DataMember]
-        public programming programming { get; set; }
+        public Programming programming { get; set; }
 
         [DataMember]
         public  ICollection<PaymentDetail> payment_detail { get; set; }
