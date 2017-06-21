@@ -157,6 +157,8 @@
     </Compile>
     <Compile Include="models\Genre.cs" />
     <Compile Include="models\Movie.cs" />
+    <Compile Include="models\Payment.cs" />
+    <Compile Include="models\PaymentDetail.cs" />
     <Compile Include="models\Product.cs" />
     <Compile Include="models\Programming.cs" />
     <Compile Include="movies.cs">

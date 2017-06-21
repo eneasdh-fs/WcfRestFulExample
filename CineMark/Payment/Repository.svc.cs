@@ -1,4 +1,5 @@
-﻿using CineMark.Response;
+﻿using AutoMapper;
+using CineMark.Response;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -10,10 +11,13 @@ using System.Text;
 using model = CineMark.models;
 namespace CineMark.Payment
 {
+
+    [AutomapServiceBehavior]
     public class Repository : Contract
     {
 
         protected readonly Entities Context;
+        protected const int quantity = 0; 
 
         public Repository(Entities Context)
         {
@@ -39,7 +43,7 @@ namespace CineMark.Payment
                     programming_id = programming.id,
                     client = client,
                     headquarter_id = 1,
-                    quantity = q,
+                    quantity = Repository.quantity,
                     creator_by = 1
                 });
 
@@ -48,8 +52,7 @@ namespace CineMark.Payment
                 if (isSuccess)
                 {
                     List<products> products = this.Context.products.Where(x => elements.Contains(x.id.ToString())).ToList();
-
-
+                    
                     products.ForEach(x =>
                     {
                         pay.payment_detail.Add(new payment_detail()
@@ -73,7 +76,6 @@ namespace CineMark.Payment
                     transaction.Rollback();
                     return new Json() {
                         success = false,
-                        data= elements,
                         message = "Error registering"
                     };
                 }
@@ -104,6 +106,20 @@ namespace CineMark.Payment
             return this.Context.SaveChanges() > 0;
         }
 
-    
+
+
+
+        public List<model.Payment> all()
+        {
+            List<payments> payments = this.Context.payments.ToList();
+            return Mapper.Map<List<payments>, List<model.Payment>>(payments);
+        }
+
+
+        public model.Payment find(String id)
+        {
+            int key = int.Parse(id);
+            return Mapper.Map<payments, model.Payment>(this.Context.payments.First(x => x.id == key));
+        }
     }
 }

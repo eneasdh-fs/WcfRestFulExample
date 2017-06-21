@@ -18,5 +18,15 @@ namespace CineMark.Payment
         [OperationContract]
         [WebInvoke(Method = "GET", UriTemplate = "/payments/{programming_id}/programming/?client={client}&quantity={quantity}&element={element}", ResponseFormat = WebMessageFormat.Json, RequestFormat = WebMessageFormat.Json, BodyStyle = WebMessageBodyStyle.Wrapped)]
         Json store(String programming_id, String client, String quantity, String element);
+
+        [OperationContract]
+        [WebGet(UriTemplate = "/", ResponseFormat = WebMessageFormat.Json, RequestFormat = WebMessageFormat.Json, BodyStyle = WebMessageBodyStyle.Wrapped)]
+         List<model.Payment> all();
+
+        [OperationContract]
+        [WebGet(UriTemplate = "/{id}", ResponseFormat = WebMessageFormat.Json, RequestFormat = WebMessageFormat.Json, BodyStyle = WebMessageBodyStyle.Wrapped)]
+        model.Payment find(String id);
+
+
     }
 }

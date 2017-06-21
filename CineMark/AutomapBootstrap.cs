@@ -25,7 +25,12 @@ namespace CineMark
                 cfg.CreateMap<programming, model.Programming>().ReverseMap().ForMember(x => x.release_at, x => x.ToString());
 
                 /* products */
-                cfg.CreateMap<products, model.Product>().ReverseMap();            
+                cfg.CreateMap<products, model.Product>().ReverseMap();
+
+                /* payments */
+                cfg.CreateMap<payments, model.Payment>().ReverseMap();
+                cfg.CreateMap<payment_detail, model.PaymentDetail>().ReverseMap();
+
             });
             
         }
